@@ -13,18 +13,23 @@ class Square extends Component {
 }
 
 class Board extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      squares: Array(9).fill(null),
-      xturn: Boolean(true)
-    }
+      squares: new Array(9).fill(null),
+      xturn: true
+    };
+    this.onInit = this.onInit.bind(this);
+  }
+
+  onInit() {
+    this.setState({squares: new Array(9).fill(null), xturn:Boolean(true)})
   }
 
   handleClick(i) {
     const temp = this.state.squares.slice();
 
-    if(temp[i] != null) {
+    if(temp[i] !== null) {
       alert("Can not mark in this position.");
     }
     else {
@@ -65,6 +70,9 @@ class Board extends Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
+        <div>
+          <input type="button" value="restart" onClick={ this.onInit } className="btn-restart"/>
+        </div>
       </div>
     );
   }
@@ -72,7 +80,7 @@ class Board extends Component {
 
 class App extends Component {
 
-  render() {
+  static render() {
     return (
       <div className="App">
         <div className="App-header">
